@@ -191,4 +191,27 @@ class PauseToPlayStepView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : PauseToPlayStepView) {
+
+        private val ptp : PauseToPlay = PauseToPlay(0)
+
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            ptp.draw(canvas, paint)
+            animator.animate {
+                ptp.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ptp.startUpdating {
+                animator.stop()
+            }
+        }
+    }
 }

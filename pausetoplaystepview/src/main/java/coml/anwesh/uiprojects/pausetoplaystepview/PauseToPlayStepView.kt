@@ -216,4 +216,12 @@ class PauseToPlayStepView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+        fun create(activity : Activity) : PauseToPlayStepView {
+            val view : PauseToPlayStepView = PauseToPlayStepView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }

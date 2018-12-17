@@ -35,7 +35,7 @@ fun Canvas.drawPTPNode(i : Int, scale : Float, paint : Paint) {
     val h : Float = height.toFloat()
     val gap : Float = w / (nodes + 1)
     val size : Float = gap / sizeFactor
-    val xGap : Float = size * Math.sqrt(3.0).toFloat()
+    val xGap : Float = size / 2
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
     paint.strokeWidth = Math.min(w, h) / strokeFactor
@@ -50,7 +50,7 @@ fun Canvas.drawPTPNode(i : Int, scale : Float, paint : Paint) {
         val sc : Float = sc1.divideScale(j, lines)
         save()
         translate(xGap/2, 0f)
-        rotate(30f * sc * sf)
+        rotate(Math.atan(0.5).toFloat() * sc * sf * 180 / Math.PI.toFloat())
         drawLine(0f, 0f, 0f, size * sf, paint)
         restore()
     }
@@ -212,7 +212,7 @@ class PauseToPlayStepView(ctx : Context) : View(ctx) {
 
         fun handleTap() {
             ptp.startUpdating {
-                animator.stop()
+                animator.start()
             }
         }
     }
